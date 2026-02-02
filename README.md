@@ -21,6 +21,8 @@ A simple, customizable QR Code Generator web application. Create QR codes for UR
 
 ## Running Locally
 
+The application is ready to use - just open `index.html` in a web browser or serve it with a local HTTP server:
+
 ```bash
 # Start a simple HTTP server
 python3 -m http.server 8000
@@ -31,7 +33,9 @@ npx http-server
 # Then open http://localhost:8000 in your browser
 ```
 
-## Building
+## Building (for development)
+
+If you modify `app.js`, rebuild the bundle:
 
 ```bash
 npm install

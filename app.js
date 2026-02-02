@@ -66,7 +66,8 @@ window.generateQR = async function() {
     const text = document.getElementById('qrText').value.trim();
     
     if (!text) {
-        alert('Please enter some content to generate QR code');
+        const qrcodeDiv = document.getElementById('qrcode');
+        qrcodeDiv.innerHTML = '<span class="empty-state" style="color: #f56565;">Please enter some content to generate QR code</span>';
         return;
     }
 
@@ -87,20 +88,26 @@ window.generateQR = async function() {
             errorCorrectionLevel: 'H'
         });
 
-        // Display the QR code
-        qrcodeDiv.innerHTML = `<img src="${qrCodeDataUrl}" alt="QR Code" style="border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">`;
+        // Display the QR code - create img element securely
+        const img = document.createElement('img');
+        img.src = qrCodeDataUrl;
+        img.alt = 'QR Code';
+        img.style.cssText = 'border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);';
+        qrcodeDiv.innerHTML = '';
+        qrcodeDiv.appendChild(img);
 
         // Show download button
         document.getElementById('downloadBtn').style.display = 'block';
     } catch (err) {
         console.error('Error generating QR code:', err);
-        alert('Error generating QR code');
+        qrcodeDiv.innerHTML = '<span class="empty-state" style="color: #f56565;">Error: Failed to generate QR code. Please check your input.</span>';
     }
 }
 
 window.downloadQR = function() {
     if (!qrCodeDataUrl) {
-        alert('Please generate a QR code first');
+        const qrcodeDiv = document.getElementById('qrcode');
+        qrcodeDiv.innerHTML = '<span class="empty-state" style="color: #f56565;">Please generate a QR code first</span>';
         return;
     }
 
